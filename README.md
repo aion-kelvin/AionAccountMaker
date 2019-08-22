@@ -2,9 +2,13 @@
 
 Generates random private keys and provides the corresponding Aion address.
 
+
+
 Usage:
 
-`./gradlew run`
+If you haven't already, clone this repo: `git clone https://github.com/aion-kelvin/AionAccountMaker.git`
+
+Then, from the directory where you cloned it, run: `./gradlew run`
 
 Example output:
 
