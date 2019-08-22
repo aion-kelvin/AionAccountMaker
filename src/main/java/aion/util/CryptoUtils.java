@@ -16,16 +16,14 @@ public class CryptoUtils {
     private static final String pkEncodedPrefix = "302a300506032b6570032100";
 
     public static KeyPair generateKeyPair() {
-        KeyPairGenerator keyPairGenerator = new KeyPairGenerator();
-        KeyPair pair = keyPairGenerator.generateKeyPair();
-        return pair;
+        return new KeyPairGenerator().generateKeyPair();
     }
 
     public static String privpubKey(KeyPair pair) {
         EdDSAPrivateKey privateKey = (EdDSAPrivateKey) pair.getPrivate();
         EdDSAPublicKey publicKey = (EdDSAPublicKey)pair.getPublic();
         String privPart = Utils.bytesToHex(privateKey.getEncoded()).substring(32, 96);
-        String pubPart = Utils.bytesToHex(publicKey.getEncoded()).substring(24, 88);
+        String pubPart = Utils.bytesToHex(publicKey.getEncoded()).substring(pkEncodedPrefix.length(), 88);
         return privPart + pubPart;
     }
 
