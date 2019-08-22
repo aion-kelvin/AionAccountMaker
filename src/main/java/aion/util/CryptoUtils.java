@@ -1,6 +1,5 @@
 package aion.util;
 
-import main.crypto.Blake2b;
 import net.i2p.crypto.eddsa.EdDSAPrivateKey;
 import net.i2p.crypto.eddsa.EdDSAPublicKey;
 import net.i2p.crypto.eddsa.KeyPairGenerator;

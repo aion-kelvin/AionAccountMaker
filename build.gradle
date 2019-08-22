@@ -18,10 +18,7 @@ plugins {
 mainClassName = 'aion.util.AccountMaker'
 
 dependencies {
-    compile fileTree(dir: 'lib', include: ['*.jar'])
-    compile 'com.google.guava:guava:23.0'
-    testCompile 'junit:junit:4.12'
-}
+    compile group: 'net.i2p.crypto', name: 'eddsa', version: '0.3.0'}
 
 // In this section you declare where to find the dependencies of your project
 repositories {
