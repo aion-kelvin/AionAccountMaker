@@ -14,11 +14,27 @@ public class CryptoUtils {
     private static final String skEncodedPrefix = "302e020100300506032b657004220420";
     private static final String pkEncodedPrefix = "302a300506032b6570032100";
 
+    /**
+     * Generate pseudorandom key pair
+     *
+     * @return pseudorandom key pair
+     */
     public static KeyPair generateKeyPair() {
         return new KeyPairGenerator().generateKeyPair();
     }
 
-    public static String privpubKey(KeyPair pair) {
+    /**
+     * Create a 'private key' from KeyPair.
+     *
+     * Note: this isn't the private key used in the cryptogrpahic sense; it includes
+     * the private key plus some extra information, but this is the 'private key'
+     * that other Aion software asks for when they ask for private key (i.e. Aiwa and
+     * Aion web3.js).
+     *
+     * @param pair key pair
+     * @return private key
+     */
+    public static String privateKey(KeyPair pair) {
         EdDSAPrivateKey privateKey = (EdDSAPrivateKey) pair.getPrivate();
         EdDSAPublicKey publicKey = (EdDSAPublicKey)pair.getPublic();
         String privPart = Utils.bytesToHex(privateKey.getEncoded()).substring(32, 96);
@@ -26,13 +42,20 @@ public class CryptoUtils {
         return privPart + pubPart;
     }
 
+    /**
+     * Derive Aion address from KeyPair
+     *
+     * @param pair key pair
+     * @return Aion address corresponding to the key pair
+     * @throws InvalidKeySpecException if system missing crypto algorithm
+     */
+    public static String address(KeyPair pair) throws InvalidKeySpecException {
+        return Utils.bytesToHex(deriveAddress(privKey(pair)));
+    }
+
     private static byte[] privKey(KeyPair pair) {
         EdDSAPrivateKey privateKey = (EdDSAPrivateKey) pair.getPrivate();
         return Utils.hexToBytes(Utils.bytesToHex(privateKey.getEncoded()).substring(32, 96));
-    }
-
-    public static String address(KeyPair pair) throws InvalidKeySpecException {
-        return Utils.bytesToHex(deriveAddress(privKey(pair)));
     }
 
     /**
